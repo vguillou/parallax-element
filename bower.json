@@ -4,7 +4,7 @@
   "authors": [
     "Vincent Guillou <vin.guillou@gmail.com>"
   ],
-  "description": "A Polymer element allowing to declaratively create simple vertical or horizontal parallax scrolling effects. Achieved with CSS transformations, it features built-in deactivation for browser support (IE).",
+  "description": "A Polymer element allowing to declaratively create simple vertical or horizontal parallax scrolling effects. It features built-in deactivation of the effect in browsers (IE) that do not fully support the CSS transformations leveraged to achieve the parallax scrolling.",
   "license": "MIT",
   "ignore": [
     "**/.*",
