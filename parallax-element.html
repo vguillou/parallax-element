@@ -1,0 +1,281 @@
+<!--
+`parallax-element` is a container allowing nested
+`parallax-layers` to to implement a parallax effect.
+The effect leverages CCS3 3D transformations.
+This means that the implementation is efficient
+performance-wise, and can be used on mobile.
+    
+    parallax-element > * {
+      min-height: 500px;
+    }
+
+    <parallax-element>
+  	  <div>My first normal DIV<div>
+      <parallax-layers style="z-index: -1;">
+  	    <div depth="-0.5">DIV srolling 25% slower and sliding under normal ones<div>
+      </parallax-layers>
+  	  <div>My second normal DIV<div>
+    </parallax-element>
+
+To learn more about the usage of `parallax-layers`,
+please refer to it's own documentation.
+
+A `parallax-element` needs an explicit size to be set via CSS.
+This size depends of the orientation of it's layout :
+the height if vertical (default), the width if horizontal.  
+
+    parallax-element {
+      height: 100vh;
+      width: 100vw;
+    }
+
+The orientation of the layout is vertical by default,
+but can be changed using polymer standard built-in attributes :
+
+    <parallax-element horizontal>
+      <parallax-layers>...</parallax-layers>
+    </parallax-element>
+
+@element parallax-element
+@demo demo/index.html
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="parallax-layers.html">
+
+<dom-module id="parallax-element">
+  <template>
+    <style>
+      :host {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+      }
+
+      :host(.ready) {
+        visibility: visible;
+      }
+
+      :host(:not([horizontal])) {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      :host([horizontal]) {
+        overflow-y: hidden;
+        overflow-x: auto;
+      }
+
+      :host > ::content > * {
+        position: relative;
+      }
+    </style>
+    <content></content>
+  </template>
+  <script>
+    Polymer({
+      is: 'parallax-element',
+
+      behaviors: [Polymer.IronResizableBehavior],
+
+      properties: {
+        /**
+         * Whether or not to activate the parallax effect.
+         * Default "auto" will activate the effect only on compatible browsers:
+         * All but IE (all versions/plateforms) and Firefox for mobile
+         * (supports the effect, but displays glitchs).
+         * "true" can be used to force the effect, and "false" to disable it.
+         * The element then behaves like any flex-box container.
+         * 
+         * @attribute activate
+         * @type string
+         * @values "auto", "true", "false"
+         * @default "auto"
+         */
+        activate: {
+          type: String,
+          value: 'auto',
+          observer: 'render'
+        },
+
+        /**
+         * If true, the orientation is horizontal; otherwise is vertical.
+         *
+         * @attribute horizontal
+         * @type boolean
+         * @default false
+         */
+        horizontal: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+          observer: '_horizontalChanged'
+        },
+
+        /**
+         * Perspective used for rendering the 3D effect.
+         * Can be used to tweak the parallax, but the default
+         * value should do just fine.
+         *
+         * @attribute perspective
+         * @type number
+         * @default 1
+         */
+        perspective: {
+          type: Number,
+          value: 1,
+          observer: 'render'
+        },
+
+        /**
+         * Automatically set to true if the web browser is capable of displaying
+         * correctly the parallax effect, and to false otherwise.
+         * Current implementation probably doesn't provide full coverage.
+         *
+         * @attribute isBrowserCompatible
+         * @type boolean
+         */
+        isBrowserCompatible: {
+          type: Boolean,
+          readOnly: true,
+          reflectToAttribute: true,
+          notify: true
+        }
+      },
+
+      listeners: {
+        'iron-resize': 'render'
+      },
+
+      /**
+       * Updates the parallax effect to match height of the parallax-layers,
+       * depth of the layers, scroll position and size of the element/browser.
+       *
+       * @method render
+       */
+      render: function() {
+        this.style.perspective = this.perspective + "px";
+        this.style['-webkit-perspective'] = this.perspective + "px";
+        
+        var parLayersElement = this._parallaxLayersElements;
+        if (parLayersElement) {
+          for (var i = 0, p; p = parLayersElement[i]; i++) {
+            // Update group
+            if (p && p.render) {
+              p.render(this.isActivated ? this.perspective : 0, this.horizontal ? this.clientWidth : this.clientHeight, this.horizontal);
+            }
+          }
+        }
+      },
+
+      get _parallaxLayersElements() {
+        return Polymer.dom(this).querySelectorAll('parallax-layers');
+      },
+
+      /**
+       * Read-only flag indicating if the element parallax effect will be
+       * activated, either automatically or explicitly via the 'activate' property. 
+       *
+       * @attribute isActivated
+       * @type boolean
+       */
+      get isActivated() {
+        return this.activate === true || this.activate == 'true' || this.activate == 'auto' && this.isBrowserCompatible;
+      },
+
+      ready: function() {
+        this._checkBrowserCapabilities();
+        this.render();
+        Polymer.dom(this).classList.add('ready');
+      },
+
+      attached: function() {
+        this._observer = new MutationObserver(function (mutations) {
+          this.render();
+        }.bind(this));
+        this._observer.observe(this, {
+          childList: true
+        });
+      },
+
+      detached: function() {
+        if (this._hasScrollHandler) {
+          this.removeEventListener('scroll', this._scrollHandler);
+        }
+      },
+
+      _horizontalChanged: function(newValue, oldValue) {
+        this.scrollTop = this.scrollLeft = 0;
+        this.render();
+      },
+
+      _checkBrowserCapabilities: function() {
+        var navU = navigator.userAgent;
+        // Android Mobile
+        var is_android = navU.indexOf('Android');
+        // Apple webkit
+        var regExAppleWebKit = new RegExp(/AppleWebKit\/([\d.]+)/);
+        var resultAppleWebKitRegEx = regExAppleWebKit.exec(navU);
+        var appleWebKitVersion = resultAppleWebKitRegEx === null ? null : parseFloat(regExAppleWebKit.exec(navU)[1]);
+        // Chrome
+        var regExChrome = new RegExp(/Chrome\/([\d.]+)/);
+        var resultChromeRegEx = regExChrome.exec(navU);
+        var chromeVersion = resultChromeRegEx === null ? null : parseFloat(regExChrome.exec(navU)[1]);
+        var is_android_browser = is_android && (appleWebKitVersion !== null && appleWebKitVersion < 537) || chromeVersion !== null && chromeVersion < 37;
+        var is_opera = navU.toLowerCase().indexOf('opr') > -1;
+        var is_explorer = navigator.userAgent.toLowerCase().indexOf('msie') > -1 || navigator.appVersion.toLowerCase().indexOf('trident/') > 0;
+        var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        var is_ios = false;
+        var mobileDevices = [
+          'iPad',
+          'iPhone',
+          'iPod'
+        ];
+        for (var i = 0; i < mobileDevices.length; i++) {
+          if (navigator.platform === mobileDevices[i]) {
+            is_ios = true;
+            break;
+          }
+        }
+        // No compatibility : IE, stock Android. Firefox mobile? !(is_firefox && (is_android || is_ios))
+        this._setIsBrowserCompatible(!is_explorer && !is_android_browser);
+        // Add a scroll handler to prevent scrolling sideways on problematic browsers
+        if (is_opera || (is_firefox && (is_android || is_ios))) {
+          this._scrollHandler = this._scroll.bind(this);
+          this.addEventListener('scroll', this._scrollHandler);
+          this._hasScrollHandler = true;
+        }
+      },
+
+      /**
+       * Preventing scrolling along the horizontal axis in *most* browsers,
+       * to keep the parallax effect.
+       * Opera for Android is still known to cause issues with this.
+       */
+      _scroll: function(event) {
+        if (this.isActivated) {
+          // Prevent scrolling in the wrong direction
+          if (!this.horizontal && this.scrollLeft !== 0 || this.horizontal && this.scrollTop !== 0) {
+            if (!this.horizontal)
+              this.scrollLeft = 0;
+            else
+              this.scrollTop = 0;
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            }
+            event.cancelBubble = true;
+            if (event.preventDefault) {
+              event.preventDefault();
+            }
+            event.returnValue = false;
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>

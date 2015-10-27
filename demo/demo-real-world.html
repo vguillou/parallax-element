@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Breizh</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-TileColor" content="#000">
+  <meta name="theme-color" content="#000">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  
+  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../../iron-image/iron-image.html">
+  <link rel="import" href="../parallax-element.html">
+
+  <style>
+  /* ----------------------- Demo styles ----------------------- */
+  
+  body, html {
+    overflow: hidden;
+    font: 100% / 1.5 Arial;
+  }
+  
+  * {
+    margin:0;
+    padding:0;
+  }
+  
+  p {
+    font-size: 1em;
+    margin: 0.5em 1em;
+  }
+
+  .title {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    margin: 1em;
+  }
+
+  .subtitle {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+  
+  /* ----------------------- Parallax styles ---------------------- */
+  
+  parallax-element {
+    height: 100vh;
+  }
+  
+  div.baseGroup {
+    z-index: 1;
+    min-height: 700px;
+    background: white;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+  }
+
+  div.baseGroup.footer {
+    min-height: 400px;
+  }
+
+  parallax-layers[id^="img"] {
+    z-index: -1;
+    min-height: 600px;
+  }
+
+  parallax-layers[id^="img"] > .background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -2;
+  }
+  
+  parallax-layers[id^="img"] p {
+    position: absolute;
+    bottom: 0;
+    font-size: 1.5em;
+    color: white;
+    text-shadow: 2px -2px 11px rgba(0, 0, 0, 1);
+  }
+
+  #imgHeader > .background {
+    background-position: 30% 95% !important;
+    background-color: #009688;
+  }
+  
+  #img1 > .background {
+    background-position: 90% 40% !important;
+    background-color: #795548;
+  }
+    
+  #img2 > .background {
+    background-position: 70% 40% !important;
+    background-color: #00BCD4;
+  }
+  #img3 > .background {
+    background-position: 35% 50% !important;
+    background-color: #33691E;
+  }
+  #img4 > .background {
+    background-position: 55% 50% !important;
+    background-color: #EF9A9A;
+  }
+  #img5 > .background {
+    background-position: 50% 55% !important;
+    background-color: #4CAF50;
+  }
+  </style>
+</head>
+
+<body unresolved>
+  
+  <parallax-element>
+
+    <parallax-layers id="imgHeader" style="z-index: -1;">
+      <iron-image depth="-0.6" sizing="cover" preload fade src="res/meneham.jpg" class="background fullbleed"></iron-image>
+      <div depth="-0.4" class="vertical center-center layout fullbleed">
+        <a href="https://en.wikipedia.org/wiki/Brittany" title="Prehistoric origins" class="title">Breizh&nbsp; Bretagne&nbsp; Britanny</a>
+      </div>
+      <p>Meneham</p>
+    </parallax-layers>
+    
+    <div class="baseGroup vertical center-center layout">
+
+      <!-- demo content (wikipedia extract), do not worry about this -->
+      <p><b>Brittany</b> (<span class="nowrap"><span class="IPA nopopups"><a href="https://en.wikipedia.org/wiki/Help:IPA_for_English" title="Help:IPA for English">/<span style="border-bottom:1px dotted"><span title="/ˈ/ primary stress follows">ˈ</span><span title="'b' in 'buy'">b</span><span title="'r' in 'rye'">r</span><span title="/ɪ/ short 'i' in 'bid'">ɪ</span><span title="'t' in 'tie'">t</span><span title="/ə/ 'a' in 'about'">ə</span><span title="'n' in 'no'">n</span><span title="/ɪ/ short 'i' in 'bid'">ɪ</span></span>/</a></span></span>; French: <span lang="fr" xml:lang="fr"><i>Bretagne</i></span> <span title="Representation in the International Phonetic Alphabet (IPA)" class="IPA"><a href="https://en.wikipedia.org/wiki/Help:IPA_for_French" title="Help:IPA for French">[bʁə.taɲ]</a></span><small class="nowrap metadata">&nbsp;(<a href="https://en.wikipedia.org/wiki/File:Fr-Bretagne.ogg" title="File:Fr-Bretagne.ogg"><a href="//upload.wikimedia.orghttps://en.wikipedia.org/wikipedia/commons/1/1b/Fr-Bretagne.ogg" class="internal" title="Fr-Bretagne.ogg">listen</a>)</small>; <a href="https://en.wikipedia.org/wiki/Breton_language" title="Breton language">Breton</a>: <span lang="br" xml:lang="br"><i>Breizh</i></span>, pronounced <span title="Representation in the International Phonetic Alphabet (IPA)" class="IPA"><a href="https://en.wikipedia.org/wiki/Help:IPA" title="Help:IPA">[bʁɛjs]</a></span> or <span title="Representation in the International Phonetic Alphabet (IPA)" class="IPA"><a href="https://en.wikipedia.org/wiki/Help:IPA" title="Help:IPA">[bʁɛχ]</a></span>;<sup id="cite_ref-Walter_1-0" class="reference"><a href="#cite_note-Walter-1"><span>[</span>1<span>]</span></a></sup> <a href="https://en.wikipedia.org/wiki/Gallo_language" title="Gallo language">Gallo</a>: <i>Bertaèyn</i>, pronounced <span title="Representation in the International Phonetic Alphabet (IPA)" class="IPA"><a href="https://en.wikipedia.org/wiki/Help:IPA_for_French" title="Help:IPA for French">[bəʁ.taɛɲ]</a></span>) is a <a href="https://en.wikipedia.org/wiki/Cultural_region" title="Cultural region" class="mw-redirect">cultural region</a> in the north-west of <a href="https://en.wikipedia.org/wiki/France" title="France">France</a>. Covering the western part of <a href="https://en.wikipedia.org/wiki/Armorica" title="Armorica">Armorica</a>, as it was known during the period of Roman occupation, Brittany subsequently became an independent <a href="https://en.wikipedia.org/wiki/Kingdom_of_Brittany" title="Kingdom of Brittany">kingdom</a> and then a <a href="https://en.wikipedia.org/wiki/Duchy_of_Brittany" title="Duchy of Brittany">duchy</a> before being <a href="https://en.wikipedia.org/wiki/Union_between_Brittany_and_France" title="Union between Brittany and France" class="mw-redirect">united</a> with the <a href="https://en.wikipedia.org/wiki/Kingdom_of_France" title="Kingdom of France">Kingdom of France</a> in 1532 as a <a href="https://en.wikipedia.org/wiki/Province_of_France" title="Province of France" class="mw-redirect">province</a> governed as if it were a separate nation under the crown. Brittany has also been referred to as <i>Less</i>, <i>Lesser</i> or <i>Little</i> Britain (as opposed to <i><a href="https://en.wikipedia.org/wiki/Great_Britain" title="Great Britain">Great Britain</a></i>). It is bordered by the <a href="https://en.wikipedia.org/wiki/English_Channel" title="English Channel">English Channel</a> to the north, the <a href="https://en.wikipedia.org/wiki/Celtic_Sea" title="Celtic Sea">Celtic Sea</a> and the <a href="https://en.wikipedia.org/wiki/Atlantic_Ocean" title="Atlantic Ocean">Atlantic Ocean</a> to the west, and the <a href="https://en.wikipedia.org/wiki/Bay_of_Biscay" title="Bay of Biscay">Bay of Biscay</a> to the south. Its land area is 34,023&nbsp;km² <span class="nowrap">(13,136 sq mi)</span>.</p>
+      <!-- end of content -->
+      
+    </div>
+
+    <parallax-layers id="img1">
+      <iron-image depth="-0.5" sizing="cover" preload fade src="res/yeun-elez.jpg" class="background fullbleed"></iron-image>
+      <p>Yeun Elez</p>
+    </parallax-layers>
+
+    <div class="baseGroup vertical center-center layout">
+
+      <!-- demo content (wikipedia extract), do not worry about this -->
+      <p><a href="https://en.wikipedia.org/wiki/Brittany#Prehistoric_origins" title="Prehistoric origins" class="subtitle">Prehistoric origins</a></p>
+      <p>Brittany has been inhabited by humans since the <a href="https://en.wikipedia.org/wiki/Lower_Paleolithic" title="Lower Paleolithic">Lower Paleolithic</a>. The first settlers were <a href="https://en.wikipedia.org/wiki/Neanderthal" title="Neanderthal">Neanderthals</a>. This population was scarce and very similar to the other Neanderthals found in the whole of Western Europe. Their only original feature was a distinct culture, called "Colombanian".<sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span>[</span>12<span>]</span></a></sup> One of the oldest <a href="https://en.wikipedia.org/wiki/Hearth" title="Hearth">hearths</a> in the world has been found in <a href="https://en.wikipedia.org/wiki/Plouhinec,_Finist%C3%A8re" title="Plouhinec, Finistère">Plouhinec, Finistère</a>. It is 450,000 years old.</p>
+      <p>Neolithic Brittany is characterised by an important <a href="https://en.wikipedia.org/wiki/Megalithic_architectural_elements" title="Megalithic architectural elements">megalithic production</a>, and it is sometimes designated as the "core area" of megalithic culture.<sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span>[</span>13<span>]</span></a></sup> The oldest monuments, <a href="https://en.wikipedia.org/wiki/Cairn" title="Cairn">cairns</a>, were followed by princely tombs and <a href="https://en.wikipedia.org/wiki/Stone_row" title="Stone row">stone rows</a>. The <a href="https://en.wikipedia.org/wiki/Morbihan" title="Morbihan">Morbihan</a> <i><a href="https://en.wikipedia.org/wiki/D%C3%A9partement" title="Département" class="mw-redirect">département</a></i>, on the southern coast, comprises a large share of these structures, including the <a href="https://en.wikipedia.org/wiki/Carnac_stones" title="Carnac stones">Carnac stones</a> and the Broken Menhir of Er Grah in <a href="https://en.wikipedia.org/wiki/Locmariaquer_megaliths" title="Locmariaquer megaliths">Locmariaquer</a>, the largest single stone erected by Neolithic man.</p>
+      <!-- end of content -->
+      
+    </div>
+    
+    <parallax-layers id="img2">
+      <iron-image depth="-0.5" sizing="cover" preload fade src="res/ile-vierge.jpg" class="background fullbleed"></iron-image>
+      <p>Crozon</p>
+    </parallax-layers>
+    
+    <div class="baseGroup vertical center-center layout">
+      <p><a href="https://en.wikipedia.org/wiki/Brittany#Middle_Ages" title="Middle Ages" class="subtitle">Middle Ages</a></p>
+      <p>At the beginning of the medieval era, Brittany was divided between three kingdoms, <a href="https://en.wikipedia.org/wiki/Domnon%C3%A9e" title="Domnonée">Domnonea</a>, <a href="https://en.wikipedia.org/wiki/Cornouaille" title="Cornouaille">Cornouaille</a> and <a href="https://en.wikipedia.org/wiki/Bro%C3%ABrec" title="Broërec" class="mw-redirect">Broërec</a>. These realms eventually merged into a single state during the 9th century.<sup id="cite_ref-23" class="reference"><a href="#cite_note-23"><span>[</span>20<span>]</span></a></sup><sup id="cite_ref-autogenerated1_24-0" class="reference"><a href="#cite_note-autogenerated1-24"><span>[</span>21<span>]</span></a></sup> The unification of Brittany was carried out by <a href="https://en.wikipedia.org/wiki/Nominoe" title="Nominoe">Nominoe</a>, king between 845 and 851 and considered as the Breton <i><a href="https://en.wikipedia.org/wiki/Pater_Patriae" title="Pater Patriae">pater patriae</a></i>. His son <a href="https://en.wikipedia.org/wiki/Erispoe" title="Erispoe">Erispoe</a> secured the independence of the new kingdom of Brittany and won the <a href="https://en.wikipedia.org/wiki/Battle_of_Jengland" title="Battle of Jengland">Battle of Jengland</a> against <a href="https://en.wikipedia.org/wiki/Charles_the_Bald" title="Charles the Bald">Charles the Bald</a>. The Bretons won another war in 867, and the kingdom reached then its maximum extent: it received parts of <a href="https://en.wikipedia.org/wiki/Normandy" title="Normandy">Normandy</a>, <a href="https://en.wikipedia.org/wiki/Maine_(province_of_France)" title="Maine (province of France)" class="mw-redirect">Maine</a> and <a href="https://en.wikipedia.org/wiki/Anjou" title="Anjou">Anjou</a> and the <a href="https://en.wikipedia.org/wiki/Channel_Islands" title="Channel Islands">Channel Islands</a>.</p>
+      <!-- end of content -->
+      
+    </div>
+    
+    <parallax-layers id="img3">
+      <iron-image depth="-0.5" sizing="cover" preload fade src="res/saint-michel.jpg" class="background fullbleed"></iron-image>
+      <p>Menez Sant-Mikael</p>
+    </parallax-layers>
+    
+    <div class="baseGroup vertical center-center layout">
+
+      <!-- demo content (wikipedia extract), do not worry about this -->
+      <p><a href="https://en.wikipedia.org/wiki/Brittany#Geography_and_natural_history" title="Geography and natural history" class="subtitle">Geography and natural history</a></p>
+      <p>Brittany is the largest French <a href="https://en.wikipedia.org/wiki/Peninsula" title="Peninsula">peninsula</a>. It is around 34,030&nbsp;km<sup>2</sup> (13,140&nbsp;sq&nbsp;mi) and stretches towards the northwest and the Atlantic Ocean. It is bordered to the north by the <a href="https://en.wikipedia.org/wiki/English_Channel" title="English Channel">English Channel</a>, to the south by the <a href="https://en.wikipedia.org/wiki/Bay_of_Biscay" title="Bay of Biscay">Bay of Biscay</a> and the waters located between the western coast and <a href="https://en.wikipedia.org/wiki/Ushant" title="Ushant">Ushant island</a> form the <a href="https://en.wikipedia.org/wiki/Iroise_Sea" title="Iroise Sea">Iroise Sea</a>.</p>
+      <p>The Breton coast is very indented, with many cliffs, <a href="https://en.wikipedia.org/wiki/Ria" title="Ria">rias</a> and <a href="https://en.wikipedia.org/wiki/Cape_(geography)" title="Cape (geography)">capes</a>. The <a href="https://en.wikipedia.org/wiki/Gulf_of_Morbihan" title="Gulf of Morbihan">Gulf of Morbihan</a> is a vast <a href="https://en.wikipedia.org/wiki/Natural_harbour" title="Natural harbour" class="mw-redirect">natural harbour</a> with some forty islands that is almost a closed sea. In total, around 800 islands lie off the mainland; the largest being <a href="https://en.wikipedia.org/wiki/Belle_%C3%8Ele" title="Belle Île">Belle Île</a>, in the south. Brittany has over 2,860&nbsp;km (1,780&nbsp;mi) of coastline; it represents a third of the total French coastline.</p>
+      <!-- end of content -->
+      
+    </div>
+    
+    <parallax-layers id="img4">
+      <iron-image depth="-0.5" sizing="cover" preload fade src="res/ploumanach.jpg" class="background fullbleed"></iron-image>
+      <p>Ploumanac'h</p>
+    </parallax-layers>
+    
+    <div class="baseGroup vertical center-center layout">
+
+      <!-- demo content (wikipedia extract), do not worry about this -->
+      <p><a href="https://en.wikipedia.org/wiki/Brittany#Regional_identity" title="Regional identity" class="subtitle">Regional identity</a></p>
+      <p>Breton political parties do not have a wide support and their electoral success is small. However, Bretons have a strong cultural identity. According to a poll made in 2008, 50% of the inhabitants of the <a href="https://en.wikipedia.org/wiki/Brittany_(administrative_region)" title="Brittany (administrative region)">Region Brittany</a> consider themselves as much Breton as French, 22.5% feel more Breton than French, and 15.4% more French than Breton. A minority, 1.5%, considers itself Breton but not French, while 9.3% do not consider themselves to be Breton at all.</p>
+      <p>Breton is a <a href="https://en.wikipedia.org/wiki/Celtic_language" title="Celtic language" class="mw-redirect">Celtic language</a> derived from the historical <a href="https://en.wikipedia.org/wiki/Common_Brittonic" title="Common Brittonic">Common Brittonic</a> language, and is most closely related to <a href="https://en.wikipedia.org/wiki/Cornish_language" title="Cornish language">Cornish</a> and <a href="https://en.wikipedia.org/wiki/Welsh_language" title="Welsh language">Welsh</a>. It was imported in Western <a href="https://en.wikipedia.org/wiki/Armorica" title="Armorica">Armorica</a> during the 5th century by Britons fleeing the <a href="https://en.wikipedia.org/wiki/Anglo-Saxon_invasion_of_Britain" title="Anglo-Saxon invasion of Britain" class="mw-redirect">Anglo-Saxon invasion of Britain</a>. Since the 13th century, long before the <a href="https://en.wikipedia.org/wiki/Union_of_Brittany_and_France" title="Union of Brittany and France">union of Brittany and France</a>, the main administrative language of the Duchy of Brittany had been French, which had replaced Latin.</p>
+      <!-- end of content -->
+
+    </div>
+    
+    <parallax-layers id="img5">
+      <iron-image depth="-0.5" sizing="cover" preload fade src="res/huelgoat.jpg" class="background fullbleed"></iron-image>
+      <p>Huelgoat</p>
+    </parallax-layers>
+    
+    <div class="baseGroup footer horizontal center around-justified layout flex">
+        <p>Text extracts : <a href="http://www.wikipedia.com"><img src="res/wikipedia.png" style="height: 1.4em;" alt="wikipedia"></a></p>
+        <p>Photos : <a href="https://vguillou.github.io" class="subtitle">Vincent&nbsp;Guillou</a></p>
+    </div>
+  
+   </parallax-element>
+</body></html>

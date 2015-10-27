@@ -1,0 +1,266 @@
+<!--
+Use to create parallax effect inside of a `parallax-element`.
+    
+    parallax-element > * {
+      min-height: 500px;
+    }
+
+    <parallax-element>
+		  <div>My first normal DIV<div>
+      <parallax-layers>
+		    <div depth="-0.5">DIV srolling 25% slower than normal ones<div>
+      </parallax-layers>
+		  <div>My second normal DIV<div>
+    </parallax-element>
+
+The parent `parallax-element` being essantially a flex-box,
+the `parallax-layers` must be give a minimum size.
+This size to be set depends of the orientation
+of the parent's layout :
+"min-height" if vertical (default), or "min-width" if horizontal.
+
+    parallax-layers {
+      min-height: 500px;
+    }
+
+In order to accomplish parallax effect where certain `parallax-layers`
+slide under others, one has to give `parallax-layers` a z-index like so :
+
+    parallax-layers.deep {
+      z-index: -1;
+    }
+
+  	<parallax-element>
+  		<div>My first normal DIV<div>
+      <parallax-layers style="z-index: -1;">
+  	    <div depth="-0.5">
+  		   DIV srolling slower and sliding under normal ones
+  	    <div>
+      </parallax-layers>
+  	  <div>My second normal DIV<div>
+    </parallax-element>
+
+TODO LAYER Documentation
+
+@element parallax-layers
+@demo demo/index.html
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="parallax-layers">
+  <template>
+    <style>
+      :host {
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+
+      :host > ::content > [depth] {
+        position: absolute !important;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      :host > ::content > .fullbleed {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    </style>
+    <content id="layers"></content>
+  </template>
+  <script>
+    Polymer({
+      is: 'parallax-layers',
+
+      properties: {
+        _horizontal: {
+          type: Boolean,
+          value: false
+        },
+
+        _isObserving: {
+          type: Boolean,
+          value: false
+        },
+
+        _parentSize: {
+          type: Number,
+          value: 0
+        },
+
+        _perspective: {
+          type: Number,
+          value: 1
+        },
+
+        _observer: {
+          type: Object,
+          value: null
+        }
+      },
+
+      /**
+       * The elements in the light DOM that will seem to scroll slower/faster,
+       * while actually being translated farther/closer from/to the viewport
+       * and appropriately scaled.
+       */
+      get layers() {
+        return Polymer.dom(this).children;
+      },
+
+      /**
+       * Updates the parallax effect to match height of the section,
+       * depth of the layers, scroll position and size of the element/browser.
+       * Should be called after any change of size of the element, other
+       * than one triggered by a CoreResizer or by a resize of the browser's window.
+       *
+       * @method render
+       */
+      render: function (perspective, parentSize, horizontal) {
+        this._perspective = perspective;
+        this._parentSize = parentSize;
+        this._horizontal = horizontal;
+        this._prepare();
+      },
+
+      ready: function () {
+        this._observer = new MutationObserver(function (mutations) {
+          var needsUpdate = false;
+          mutations.forEach(function (m) {
+            if (m.target.localName == 'parallax-layers' || (m.target.parentElement && m.target.parentElement.localName == 'parallax-layers')) {
+              needsUpdate = true;
+              return;
+            }
+          });
+          if (needsUpdate) {
+            this._prepare();
+          }
+        }.bind(this));
+        this._startObserving();
+        this._prepare();
+      },
+
+      detached: function () {
+        this._stopObserving();
+        this._observer = null;
+      },
+
+      _getDepth: function (node) {
+        var depth = node['depth'] || node.getAttribute('depth') || 0;
+        return parseFloat(depth);
+      },
+
+      _startObserving: function () {
+        // Observe changes to child (layers)
+        this._observer.observe(this, {
+          childList: true,
+          attributes: true,
+          subtree: true
+        });
+        this._isObserving = true;
+      },
+
+      _stopObserving: function () {
+        if (this._isObserving) {
+          this._isObserving = false;
+          this._observer.disconnect();
+        }
+      },
+
+      _prepare: function () {
+        var parallaxSize, layers;
+        this._stopObserving();
+        layers = this.layers;
+        if (layers) {
+          parallaxSize = !this._horizontal ? this.offsetHeight : this.offsetWidth;
+          isHeader = (this._horizontal ? this.offsetLeft : this.offsetTop) == 0;
+          for (var i = 0, l; l = layers[i]; i++) {
+            this._prepareLayer(l, parallaxSize, isHeader);
+          }
+        }
+        this.async(function () {
+          this._startObserving();
+        });
+      },
+
+      _prepareLayer: function (layer, parallaxSize, isHeader) {
+        var translateZ = translateY = translateX = translateToStick = scale = 0;
+        if (layer) {
+          // 3D transformation and scalling
+          depth = this._getDepth(layer);
+          translateZ = depth * this._perspective;
+          scale = 1 + (this._perspective != 0 ? -1 * translateZ / this._perspective : 0);
+          Polymer.dom(layer).classList.remove(this._horizontal ? 'vertical' : 'horizontal');
+          Polymer.dom(layer).classList.add(this._horizontal ? 'horizontal' : 'vertical');
+          // Calculate offset and/or position if header
+          translateToStick = this._prepareLayerOffsetAndPos(layer, translateZ, scale, parallaxSize, isHeader);
+          translateY = !this._horizontal ? translateToStick : 0;
+          translateX = this._horizontal ? translateToStick : 0;
+          layer.style.transform = layer.style.webkitTransform = depth == 0 ? '' : 'scale(' + scale + ')' + (translateX != 0 ? ' translateX(' + translateX + 'px)' : '') + (translateY != 0 ? ' translateY(' + translateY + 'px)' : '') + (translateZ != 0 ? ' translateZ(' + translateZ + 'px)' : '');
+        }
+      },
+
+      _prepareLayerOffsetAndPos: function (layer, translateZ, scale, parallaxSize, isHeader) {
+        var translateToStick = 0;
+        var offsetTop = offsetBottom = centerTop = projectionFactor = speed = null;
+        var isFulldBleed = Polymer.dom(layer).classList.contains('fullbleed');
+        if (this._perspective != 0 && translateZ != 0) {
+          // centerTop : position of center of the parallax group relative to the center of the parent,
+          // when the group's top = parent's top
+          centerTop = (this._parentSize - parallaxSize) / 2;
+          // projectionFactor : factor any size at z distance is multiplied with
+          // to result in the projected size at z=0.
+          projectionFactor = 1 + 1 * translateZ / (this._perspective - translateZ);
+          if (translateZ < 0) {
+            // Background layer
+            if (isHeader) {
+              // translation to apply for a sticky background layer =
+              // -( (1/2 viewport) - (1/2 size of the layer * projectionFactor) - (centerTop * projectionFactor) )
+              translateToStick = this._parentSize / 2;
+              translateToStick = translateToStick - parallaxSize / 2 * scale * projectionFactor;
+              translateToStick = -(translateToStick - centerTop * projectionFactor);
+            } else if (isFulldBleed) {
+              speed = -1 * translateZ / (this._perspective - translateZ);
+              offsetTop = speed * (this._parentSize - parallaxSize) / 2;
+              offsetTop = offsetBottom = -Math.ceil(offsetTop);
+            }
+          } else {
+            // Foreground layer
+            speed = this._perspective / (1 * (this._perspective - translateZ)) - 1;
+            if (isHeader) {
+              if (isFulldBleed) {
+                offsetTop = offsetBottom = -Math.ceil(speed * parallaxSize / 2);
+              }
+              // translation to apply for a sticky foreground layer =
+              // -offsetTop + (1/2 size of the layer * projectionFactor) + (centerTop * projectionFactor) - (1/2 viewport)
+              translateToStick = -1 * offsetTop + parallaxSize / 2 * scale * projectionFactor;
+              translateToStick = translateToStick + centerTop * projectionFactor;
+              translateToStick = translateToStick - this._parentSize / 2;
+            } else if (isFulldBleed) {
+              offsetTop = speed * ((this._parentSize - parallaxSize) / 2 + parallaxSize);
+              offsetTop = offsetBottom = -Math.ceil(offsetTop);
+            }
+          }
+          layer.style.top = !this._horizontal && offsetTop != null ? offsetTop + 'px' : '';
+          layer.style.bottom = !this._horizontal && offsetBottom != null ? offsetBottom + 'px' : '';
+          layer.style.left = this._horizontal && offsetTop != null ? offsetTop + 'px' : '';
+          layer.style.right = this._horizontal && offsetBottom != null ? offsetBottom + 'px' : '';
+        } else
+          // No offset
+          {
+            layer.style.top = layer.style.bottom = layer.style.left = layer.style.right = '';
+          }
+        return translateToStick.toFixed(2);
+      }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>"dom-repeat" demo</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../parallax-element.html">
+
+   <style>
+     body, html {
+      overflow: hidden;
+      font: 200% / 1.5 Arial;
+      margin: 0;
+      padding: 0;
+    }
+
+    parallax-element {
+      width: 100vw;
+      height: 100vh;
+    }
+  
+    parallax-layers {
+      min-height: 400px;
+      z-index: -1;
+    }
+
+    parallax-layers > .parallax-layer {
+      background-image: url("res/doge.jpg");
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+    }
+  
+    div.no-parallax {
+      min-height: 500px;
+      width: 100vw;
+      z-index: 0;
+      background: white;
+      border-style: solid;
+      border-width: 5px;
+      border-color: black;
+    }
+  </style> 
+</head>
+
+<body unresolved>
+
+  <template is="dom-bind" id="demo">
+
+    <parallax-element>
+      <template is="dom-repeat" items="{{sections}}">
+
+        <template is="dom-if" if="{{isNormalSection(item)}}">
+          <div class="no-parallax     layout vertical center-center">
+            [[item.label]]
+          </div>
+        </template>
+
+       <template is="dom-if" if="{{!isNormalSection(item)}}">
+          <parallax-layers style$="{{computeSectionZindex(item)}}">
+            <div depth$="[[item.depth]]" class="parallax-layer fullbleed     layout vertical center-center">
+              [[item.label]]
+            </div>
+          </parallax-layers>
+        </template>
+
+      </template>
+    </parallax-element>
+
+  </template>
+  
+  <script>
+    var demo = document.querySelector('#demo');
+    demo.sections = [
+      {label:'Normal div', depth:0},
+      {label:'wow parallax', depth:-0.3},
+      {label:'very normal div', depth:0},
+      {label:'yum foreground', depth:0.2},
+      {label:'much normal div', depth:0},
+      {label:'so parallax', depth:-1},
+      {label:'many normal div', depth:0}
+    ];
+    demo.isNormalSection = function(section) {
+      return section.depth === 0;
+    };
+    demo.computeSectionZindex = function(section) {
+      console.log("computeLayerZindex", section.depth, section.depth <= 0 ? -1 : 1);
+      return 'z-index:' + (section.depth <= 0 ? -1 : 1) + ';';
+    };
+  </script>
+
+</body>
+</html>

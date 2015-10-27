@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>parallax-element overview demo</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-TileColor" content="#000">
+  <meta name="theme-color" content="#000">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  
+  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../../paper-button/paper-button.html">
+  <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
+  <link rel="import" href="../parallax-element.html">
+
+  <style is="custom-style">
+  /* ----------------------- Demo styles ----------------------- */
+  
+  body, html {
+    overflow: hidden;
+    font: 100% / 1.5 Arial;
+  }
+  
+  * {
+    margin:0;
+    padding:0;
+  }
+  
+  p {
+    font-size: 1.3em;
+    margin: 1.3em;
+  }
+
+  p.white {
+    color: #FFF;
+    text-shadow: 2px 3px 11px rgba(0, 0, 0, 1);
+  }
+  p.red {
+    color: red;
+    margin-bottom: 40px;
+  }
+
+  paper-button {
+    background: rgb(15, 157, 88);
+    color: #FFF;
+  }
+
+  div.option {
+    width: 100%;
+  }
+  
+  /* ----------------------- Parallax styles ---------------------- */
+  
+  parallax-element {
+    height: 100vh;
+  }
+
+  /***** Sizing for vertical and horizontal mode *****/
+  /***** MUST define min-height for 'normal' (vertical) mode, and min-width for horizontal mode *****/
+
+  parallax-element:not([horizontal]) > *.base {
+    min-height: 700px;
+  }
+
+  parallax-element:not([horizontal]) > *.parallax {
+    min-height: 550px;
+  }
+  
+  parallax-element[horizontal] > *.base {
+    min-width: 700px;
+  }
+
+  parallax-element[horizontal] > *.parallax {
+    min-width: 550px;
+  }
+
+
+  /***** Group styling and stacking *****/
+
+  .orangeLayer {
+    border-style: solid;
+    border-width: 5px;
+    border-color: blue;
+    background: linear-gradient(yellow, red);
+  }
+    
+  .greenLayer {
+    border-style: solid;
+    border-width: 5px;
+    border-color: red;
+    background: linear-gradient(lightblue, yellow);
+  }
+  
+  .greenBorderLayer {
+    border-style: solid;
+    border-width: 5px;
+    border-color: green;
+  }
+  
+  .redBorderLayer {
+    border-style: solid;
+    border-width: 5px;
+    border-color: red;
+  }
+
+  .base {
+    z-index: 1;
+    background: rgba(255,255,255,1);
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
+  }
+
+  .base.transparent {
+    background: rgba(255,255,255,0.7);
+    border-color: rgba(0,0,0,0.4);
+  }
+
+  parallax-layers > .imageLayer {
+    background-position: 50% 50%;
+    background-image: url("res/parallax.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -2;
+  }
+  </style>
+</head>
+
+<body unresolved>
+
+  <template is="dom-bind" id="demo">
+  
+  <parallax-element activate="[[demoActivate]]" horizontal="[[demoHorizontal]]">
+
+    <parallax-layers class="parallax" style="z-index: -1;">
+      <div depth="-0.75" class$="[[computeClass('fullbleed', demoFullbleed, 'imageLayer fit')]]"></div>
+      <div depth="-0.50" class$="[[computeClass('fullbleed', demoFullbleed, 'vertical center-center layout fit')]]">
+        <p class="white">The very first parallax-layers is automatically sticky</p>
+      </div>
+    </parallax-layers>
+    
+    <div class$="[[computeClass('transparent', demoTransparent, 'base')]]">
+      <div class$="[[computeClass('fullbleed', demoFullbleed, 'vertical center-center layout fit')]]">
+        <div class="vertical layout" style="padding: 5px;">
+          <p class="red">[[demoCompatibleMessage]]</p>
+          <h4>parallax-element</h4>
+          <div class="option">
+            <paper-toggle-button checked="{{demoActivate}}"></paper-toggle-button>
+            <p style="display: inline-block;">Effect activated</p>
+          </div>
+          <div class="option">
+            <paper-toggle-button checked="{{demoHorizontal}}"></paper-toggle-button>
+            <p style="display: inline-block;">Horizontal</p>
+          </div>
+          
+          <h4>layers</h4>
+          <div class="option">
+            <paper-toggle-button checked="{{demoFullbleed}}"></paper-toggle-button>
+            <p style="display: inline-block;">Full bleed layers</p>
+          </div>
+          
+          <h4>others</h4>
+          <div class="option">
+            <paper-toggle-button checked="{{demoTransparent}}"></paper-toggle-button>
+            <p style="display: inline-block;">Transparent base groups</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <parallax-layers class="parallax" style="z-index: 2;">
+      <div depth="0.1" class$="[[computeClass('fullbleed', demoFullbleed, 'orangeLayer vertical center-center layout fit')]]">
+        <p style="top:60%;">parallax demo</p>
+      </div>
+      <div depth="0.2" class$="[[computeClass('fullbleed', demoFullbleed, 'greenBorderLayer vertical center-center layout fit')]]">
+        <p style="top:49%;">simple foreground</p>
+      </div>
+      <div depth="0.3" class$="[[computeClass('fullbleed', demoFullbleed, 'redBorderLayer vertical center-center layout fit')]]">
+        <p style="top:45%;">This is a</p>
+      </div>
+      <div depth="0">
+        <p class="white">And I'm scrolling normally...</p>
+      </div>
+    </parallax-layers>
+
+    <div class$="[[computeClass('transparent', demoTransparent, 'base vertical center-center layout')]]">
+      <p>A simple base group</p>
+    </div>
+    
+    <parallax-layers class="parallax" style="z-index: -2;">
+      <div depth="-0.3" class$="[[computeClass('fullbleed', demoFullbleed, 'greenLayer vertical center-center layout fit')]]">
+        <p>This is a</p>
+      </div>
+      <div depth="-0.2" class$="[[computeClass('fullbleed', demoFullbleed, 'redBorderLayer vertical center-center layout fit')]]">
+        <p>simple background</p>
+      </div>
+      <div depth="-0.1" class$="[[computeClass('fullbleed', demoFullbleed, 'greenBorderLayer vertical center-center layout fit')]]">
+        <p>parallax demo</p>
+      </div>
+      <div depth="0">
+        <p class="white">And I'm scrolling normallly as well...</p>
+      </div>
+    </parallax-layers>
+
+    <div class$="[[computeClass('transparent', demoTransparent, 'base vertical center-center layout')]]">
+      <p>A simple base group</p>
+    </div>
+    
+    <parallax-layers class="parallax" style="z-index: -100;">
+      <div depth="-5" class$="[[computeClass('fullbleed', demoFullbleed, 'imageLayer vertical center-center layout fit')]]">
+        <p class="white">Very deep background layer.</p>
+        <p class="white">Somewhat reminiscent of fixed background scrolling, but working on mobile.</p>
+      </div>
+    </parallax-layers>
+    
+    <div class$="[[computeClass('transparent', demoTransparent, 'base vertical center-center layout')]]">
+      <p>Another base group</p>
+    </div>
+    
+    <parallax-layers id="dynamicGroup" class="parallax">
+      <div depth="-0.5" class$="[[computeClass('fullbleed', demoFullbleed, 'greenLayer vertical center-center layout fit')]]">
+        <p>Another background layer</p>
+        <paper-button onclick="addNewLayer()" hidden$="[[demoNewLayerAdded]]">Programmatically add a new layer</paper-button>
+      </div>
+    </parallax-layers>
+    
+    <div class$="[[computeClass('transparent', demoTransparent, 'base vertical center-center layout')]]">
+      <p>Yet another base group</p>
+    </div>
+  
+  </parallax-element>
+
+  </template>
+
+  <script>
+    var demo = document.querySelector('#demo');
+    demo.demoTransparent = demo.demoHorizontal = demo.demoNewLayerAdded = false;
+    demo.demoFullbleed = true;
+
+    demo.computeClass = function(className, flag, otherClasses) {
+      return (flag ? className : '') + ' ' + otherClasses;
+    };
+
+    demo.addEventListener('dom-change', function() {
+      var browserCompatible = document.querySelector('parallax-element').isBrowserCompatible;
+      demo.demoActivate = browserCompatible;
+      demo.demoCompatibleMessage = browserCompatible
+        ? 'Hooray, your browser is compatible! (^‿^)'
+        : 'Ouch, your browser is not compatible... (T︵T) It\'s ok, the element takes care of that, just don\'t force activation!';
+    });
+
+    function addNewLayer() {
+      demo.demoNewLayerAdded = !demo.demoNewLayerAdded;
+      var newLayer = document.createElement('div');
+      newLayer.setAttribute('id', 'newLayer');
+      newLayer.setAttribute('depth', -0.1);
+      newLayer.setAttribute('class', 'redBorderLayer vertical center-center layout fullbleed');
+      newLayer.setAttribute('style', 'background: rgba(255,255,255,0.4);');
+      newLayer.innerHTML = '<p>Wow, I\'m the new layer!</p>'
+                         + '<paper-button onclick="changeNewLayerDepth()">Change my depth</paper-button>'
+                         + '<paper-button onclick="removeNewLayer()">Remove me</paper-button>';
+
+      var dynamicGroup = document.querySelector('#dynamicGroup');
+      // Using Polymer's DOM api to insure that the layer is
+      // placed in the light DOM (when using shady DOM)
+      Polymer.dom(dynamicGroup).appendChild(newLayer);
+    }
+
+    function removeNewLayer() {
+      demo.demoNewLayerAdded = !demo.demoNewLayerAdded;
+      var dynamicGroup = document.querySelector('#dynamicGroup');
+      var newLayer = document.querySelector('#newLayer');
+      Polymer.dom(dynamicGroup).removeChild(newLayer);
+    }
+
+    function changeNewLayerDepth() {
+      var newLayer = document.querySelector('#newLayer');
+      var depth = newLayer.getAttribute('depth');
+      newLayer.setAttribute('depth', depth > -0.5 ? depth-0.1 : -0.1);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>"parallax-element" hello world</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../parallax-element.html">
+
+   <style>
+     body, html {
+      overflow: hidden;
+      font: 200% / 1.5 Arial;
+      margin: 0;
+      padding: 0;
+    }
+
+    parallax-element {
+      width: 100vw;
+      height: 100vh;
+    }
+  
+    parallax-layers {
+      min-height: 400px;
+      z-index: -1;
+    }
+
+    parallax-layers > .deep-layer {
+      background-image: url("res/parallax.jpg");
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+    }
+  
+    div.no-parallax {
+      min-height: 2500px;
+      width: 100vw;
+      z-index: 0;
+      background: linear-gradient(white, grey);
+    }
+  </style> 
+</head>
+
+<body unresolved>
+
+  <parallax-element>
+    <parallax-layers>
+      <div depth="-0.5" class="deep-layer fullbleed     layout vertical center end-justified">
+        Hello
+      </div>
+    </parallax-layers>
+    <div class="no-parallax     layout vertical center">
+      World
+    </div>
+  </parallax-element>
+  
+</body>
+</html>
