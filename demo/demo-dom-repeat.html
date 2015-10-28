@@ -38,7 +38,6 @@
   
     div.no-parallax {
       min-height: 500px;
-      width: 100vw;
       z-index: 0;
       background: white;
       border-style: solid;
@@ -79,10 +78,10 @@
     demo.sections = [
       {label:'Normal div', depth:0},
       {label:'wow parallax', depth:-0.3},
-      {label:'very normal div', depth:0},
-      {label:'yum foreground', depth:0.2},
       {label:'much normal div', depth:0},
-      {label:'so parallax', depth:-1},
+      {label:'yum foreground', depth:0.2},
+      {label:'so normal div', depth:0},
+      {label:'very parallax', depth:-1},
       {label:'many normal div', depth:0}
     ];
     demo.isNormalSection = function(section) {
