@@ -17,7 +17,8 @@ performance-wise, and can be used on mobile.
   	  <div>My second normal DIV<div>
     </parallax-element>
 
-To learn more about the usage of `parallax-layers`,
+Children `parallax-layers` components __must__ be used to create
+the parallax effect. To learn more about the usage of `parallax-layers`,
 please refer to it's own documentation.
 
 A `parallax-element` needs an explicit size to be set via CSS.
@@ -35,6 +36,26 @@ but can be changed using polymer standard built-in attributes :
     <parallax-element horizontal>
       <parallax-layers>...</parallax-layers>
     </parallax-element>
+
+__Important notes:__ <ul>
+<li>`parallax-element` must either be explicitly sized, or have and
+explicitly sized parent. By "explicitly sized", we mean it either has an
+explicit CSS `height` property set via a class or inline style, or else is sized
+by other layout means (e.g. the `flex` or `fit` classes).</li>
+<li>Children `parallax-layers` components __must__ be used to create
+the parallax effect. To learn more about the usage of `parallax-layers`,
+please refer to it's own documentation.</li>
+<li>The `parallax-element` component being essantially a flex-box,
+the children `parallax-layers` must be given a minimum size.
+The property to set depends of the orientation
+of the parent's (`parallax-element`) layout :
+"min-height" if vertical (default), or "min-width" if horizontal.</li>
+</ul>
+
+__About the parallax effect and browser support:__
+This component set uses 3D perspective and translations in order to achieve the parallax effect.
+Unfortunatly, Internet Explorer does not support the CCS `transform-style: preserve-3d` and is therefore
+not supported. However, the component will render correctly, as if the parallax effect was disabled.
 
 @element parallax-element
 @demo demo/index.html

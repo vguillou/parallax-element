@@ -21,12 +21,11 @@
   <style is="custom-style">
 
 	/* ----------------------- Parallax styles ---------------------- */
-
-	parallax-element {
-      width: 100vw;
+    
+    parallax-element {
       height: 100vh;
-	}
-  
+    }
+
 	#groupDesc {
 	  min-height: 2000px;
 	  z-index: 0;
@@ -53,6 +52,12 @@
       overflow: hidden;
       font: 100% / 1.5 Arial;
 	}
+
+    .demo-container {
+        margin: 0 auto;
+        max-width: 550px;
+        position: relative;
+    }
 	
     paper-toolbar {
 	  position: absolute;
@@ -109,7 +114,7 @@
 </head>
 
 <body unresolved>
-
+  <div class="demo-container">
     <paper-toolbar>
         <div class="toolbarTitle flex">parallax-element</div>
     </paper-toolbar>
@@ -123,9 +128,9 @@
 		</parallax-layers>
 		
 		<div id="groupDesc" class="descLayer" class="fit">
-			<div style="float: left; display: inline-block; height: 64px; width: 64px; border-radius: 20%; background: #7E57C2; line-height: 64px; font-size: 30px; color: #FFF; text-align: center; margin-right: 1em;">P</div>
-			<div style="font-size: 22px; padding: 8px 0 8px;">parallax-element</div>
-			<div style="font-size: 14px; margin-bottom: 20px;">A simple Polymer element.</div>
+			<div style="float: left; display: inline-block; height: 64px; width: 64px; border-radius: 20%; background: #7E57C2; line-height: 64px; font-size: 30px; color: #FFF; text-align: center; margin: 12px 12px 0 0;">P</div>
+			<div style="font-size: 22px; padding: 0 0 8px;">parallax-element</div>
+			<div style="font-size: 14px; margin-bottom: 20px;">A Polymer element allowing to declaratively create simple vertical or horizontal parallax scrolling effects.</div>
 				
 			<div class="horizontal flex layout" style="margin-bottom: 20px;">
 				<paper-button raised class="flex" onclick="window.location.href='https://github.com/vguillou/parallax-element'">GitHub</paper-button>
@@ -151,7 +156,7 @@
 
     <paper-icon-button icon="arrow-back" style="left: 8px;"></paper-icon-button>
     <paper-icon-button icon="search" style="right: 8px;"></paper-icon-button>
-
+  </div>
 <script>
   window.addEventListener('WebComponentsReady', function() {
       var parallaxElement = Polymer.dom(document).querySelector('parallax-element');

@@ -1,5 +1,5 @@
 <!--
-Use to create parallax effect inside of a `parallax-element`.
+Creates parallax effect inside of a `parallax-element`.
     
     parallax-element > * {
       min-height: 500px;
@@ -13,10 +13,10 @@ Use to create parallax effect inside of a `parallax-element`.
 		  <div>My second normal DIV<div>
     </parallax-element>
 
-The parent `parallax-element` being essantially a flex-box,
-the `parallax-layers` must be give a minimum size.
-This size to be set depends of the orientation
-of the parent's layout :
+__Important:__ The parent `parallax-element` component being essantially
+a flex-box, the `parallax-layers` must be given a minimum size.
+The property to set depends of the orientation
+of the parent's (`parallax-element`) layout :
 "min-height" if vertical (default), or "min-width" if horizontal.
 
     parallax-layers {
@@ -34,13 +34,53 @@ slide under others, one has to give `parallax-layers` a z-index like so :
   		<div>My first normal DIV<div>
       <parallax-layers style="z-index: -1;">
   	    <div depth="-0.5">
-  		   DIV srolling slower and sliding under normal ones
+  		   DIV srolling slower and sliding under normal ones.
   	    <div>
       </parallax-layers>
   	  <div>My second normal DIV<div>
     </parallax-element>
 
-TODO LAYER Documentation
+__Layers : `parallax-layers` direct children__
+
+The direct children added to a `parallax-layers` light DOM are hereafter called `layers`.
+These layers are the elements that will seem to scroll slower or faster than the rest of
+the page.
+In order to set up this scrolling speed, each layer must given a `depth` attribute :
+<ul>
+<li>With `depth` = 0, the layer will scroll and be displayed normally</li>
+<li>With `depth` < 0, the layer will appear to scroll slower. The layer will in fact be
+translated further (deeper) from the viewpoint</li>
+<li>With `depth` > 0, the layer will appear to scroll faster. The layer will in fact be
+translated closer (upper) to the viewpoint. Please be aware that `depth` should be,
+lower than the value of the `perspective` attribute on the parent `parallax-element`
+in order to be visible.</li>
+Therefore, only the highest layer (ie with the highest depth) can acquire focus.
+</ul>
+
+    <parallax-element>
+      <div>My first normal DIV<div>
+      <parallax-layers>
+        <div depth="0">
+         DIV that appears perfectly normal with depth=0. No parallax here!
+        <div>
+      </parallax-layers>
+      <div>My other normal DIV<div>
+      <parallax-layers style="z-index: -1;">
+        <div depth="-0.5">
+         DIV srolling slower and sliding under normal ones.
+        <div>
+        <div>
+         DIV that appears perfectly normal since depth is set to 0 by default.
+        <div>
+      </parallax-layers>
+      <div>My last normal DIV<div>
+      <parallax-layers style="z-index: 1;">
+        <div depth="0.2">
+         DIV srolling faster and sliding over normal ones.
+        <div>
+      </parallax-layers>
+    </parallax-element>
+
 
 @element parallax-layers
 @demo demo/index.html
@@ -114,7 +154,7 @@ TODO LAYER Documentation
        * and appropriately scaled.
        */
       get layers() {
-        return Polymer.dom(this).children;
+        return this.getEffectiveChildren() || Polymer.dom(this).children;
       },
 
       /**
