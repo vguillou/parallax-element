@@ -1,10 +1,14 @@
 {
   "name": "parallax-element",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     "Vincent Guillou <vin.guillou@gmail.com>"
   ],
   "description": "A Polymer element allowing to declaratively create simple vertical or horizontal parallax scrolling effects. It features built-in deactivation of the effect in browsers (IE) that do not fully support the CSS transformations leveraged to achieve the parallax scrolling.",
+  "keywords": [
+    "web-components", "web-component", "web components", "web component", "polymer", "parallax", "scrolling", "perspective"
+  ],
+  "main": "parallax-element.html",
   "license": "MIT",
   "ignore": [
     "**/.*",
