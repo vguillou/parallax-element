@@ -81,6 +81,28 @@ Therefore, only the highest layer (ie with the highest depth) can acquire focus.
       </parallax-layers>
     </parallax-element>
 
+The `fullbleed` class is available to make a layer the exact size
+necessary to achieve a perfect parallax effect. Usage of this class
+is strongly recommended to avoid revealing blank space before and after
+the layer when scrolling. Refer to the
+<a href="demo/demo-overview">overview demo</a>
+to see this class in action.
+
+    <parallax-element>
+      <div>My first normal DIV<div>
+      <parallax-layers>
+        <img depth="-0.5" class="fullbleed" src="my_img.png">
+          I will be perfectly sized to achieve a perfect parallax-effect.
+        </img>
+      </parallax-layers>
+      <div>My other normal DIV<div>
+      <parallax-layers style="z-index: -1;">
+        <img depth="-0.5" class="fit" src="my_img.png">
+          I won't be perfectly sized, scrolling will reveal blank space before and after.
+        </img>
+      </parallax-layers>
+      <div>My last normal DIV<div>
+    </parallax-element>
 
 @element parallax-layers
 @demo demo/index.html
