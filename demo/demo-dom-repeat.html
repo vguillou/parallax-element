@@ -87,7 +87,6 @@
       return section.depth === 0;
     };
     demo.computeSectionZindex = function(section) {
-      console.log("computeLayerZindex", section.depth, section.depth <= 0 ? -1 : 1);
       return 'z-index:' + (section.depth <= 0 ? -1 : 1) + ';';
     };
   </script>
