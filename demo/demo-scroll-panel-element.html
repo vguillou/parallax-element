@@ -1,5 +1,7 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../paper-scroll-header-panel/paper-scroll-header-panel.html">
 <link rel="import" href="../../paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../parallax-scroller-behavior.html">
@@ -17,6 +19,8 @@
 
         /* scroller of the panel */
         --paper-scroll-header-container: {
+          font: 200% / 1.5 Arial;
+          
           display: -ms-flexbox;
           display: -webkit-flex;
           display: flex;
@@ -44,10 +48,7 @@
       }
 
       /* demo and layer style */
-      :host { 
-        font: 200% / 1.5 Arial;
-      }
-    
+
       parallax-layers {
         min-height: 400px;
         z-index: -1;
@@ -75,7 +76,10 @@
 
       <!-- Toolbar -->
       <paper-toolbar id="mainToolbar" class="tall">
-        <div class="bottom title">paper-scroll-header-panel's toolbar</div>
+        <paper-icon-button icon="arrow-back"></paper-icon-button>
+        <span class="flex"></span>
+        <paper-icon-button icon="search"></paper-icon-button>
+        <span class="bottom title">paper-element</span>
       </paper-toolbar>
 
       <!-- Content (Must not be embed in a parent div: The scroller must be the direct parent of all <parallax-layers> -->
