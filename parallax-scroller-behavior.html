@@ -97,7 +97,10 @@
        */
       scroller: {
         type: Object,
-        observer: 'render'
+        observer: '_scrollerChanged',
+        value: function() {
+          return this;
+        }
       }
     },
 
@@ -157,13 +160,10 @@
     ready: function() {
       this._checkBrowserCapabilities();
       Polymer.dom(this).classList.add('ready');
+      this._isReady = true;
     },
 
     attached: function() {
-      if (!this.scroller) {
-        this.scroller = this;
-      }
-
       this._observer = new MutationObserver(function (mutations) {
         this.render();
       }.bind(this));
@@ -175,13 +175,28 @@
 
     detached: function() {
       if (this._hasScrollHandler) {
-        this.removeEventListener('scroll', this._scrollHandler);
+        this.scroller.removeEventListener('scroll', this._scrollHandler);
       }
+      this._scrollHandler = null;
     },
 
     _horizontalChanged: function(newValue, oldValue) {
-      this.scrollTop = this.scrollLeft = 0;
+      if (this.scroller) {
+        this.scroller.scrollTop = this.scroller.scrollLeft = 0;
+      }
       this.render();
+    },
+
+    _scrollerChanged: function(newScroller, oldScroller) {
+      if (!this._isReady) {
+        this._checkBrowserCapabilities();
+      }
+      if (this._hasScrollHandler) {
+        if (oldScroller) {
+          oldScroller.removeEventListener('scroll', this._scrollHandler);
+        }
+        this.scroller.addEventListener('scroll', this._scrollHandler);
+      }
     },
 
     _checkBrowserCapabilities: function() {
@@ -216,9 +231,8 @@
       this._setIsBrowserCompatible(!is_explorer && !is_android_browser);
       // Add a scroll handler to prevent scrolling sideways on problematic browsers
       if (is_opera || (is_firefox && (is_android || is_ios))) {
-        this._scrollHandler = this._scroll.bind(this);
-        this.addEventListener('scroll', this._scrollHandler);
         this._hasScrollHandler = true;
+        this._scrollHandler = this._scroll.bind(this);
       }
     },
 
@@ -230,11 +244,11 @@
     _scroll: function(event) {
       if (this.isActivated) {
         // Prevent scrolling in the wrong direction
-        if (!this.horizontal && this.scrollLeft !== 0 || this.horizontal && this.scrollTop !== 0) {
+        if (!this.horizontal && this.scroller.scrollLeft !== 0 || this.horizontal && this.scroller.scrollTop !== 0) {
           if (!this.horizontal)
-            this.scrollLeft = 0;
+            this.scroller.scrollLeft = 0;
           else
-            this.scrollTop = 0;
+            this.scroller.scrollTop = 0;
           if (event.stopPropagation) {
             event.stopPropagation();
           }
