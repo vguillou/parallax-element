@@ -4,3 +4,7 @@ _A Polymer element allowing to declaratively create simple vertical or horizonta
 Please refer to the <a href="https://vguillou.github.io/webcomponents/parallax-element/">component page</a> for more informations.
 
 Demos available <a href="https://vguillou.github.io/webcomponents/parallax-element/demo">here</a>.
+
+## License
+
+[MIT License](https://github.com/vguillou/parallax-element/blob/master/LICENSE.md)
