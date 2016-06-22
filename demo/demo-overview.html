@@ -11,7 +11,7 @@
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   
-  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
   <link rel="import" href="../../paper-button/paper-button.html">
   <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
   <link rel="import" href="../parallax-element.html">
@@ -50,6 +50,23 @@
 
   div.option {
     width: 100%;
+    @apply(--layout-horizontal);
+  }
+
+  .layout.horizontl {
+    @apply(--layout-horizontal);
+  }
+
+  .layout.vertical {
+    @apply(--layout-vertical);
+  }
+
+  .layout.center-center {
+    @apply(--layout-center-center);
+  }
+
+  .fit {
+    @apply(--layout-fit);
   }
   
   /* ----------------------- Parallax styles ---------------------- */
@@ -149,23 +166,23 @@
           <h4>parallax-element</h4>
           <div class="option">
             <paper-toggle-button checked="{{demoActivate}}"></paper-toggle-button>
-            <p style="display: inline-block;">Effect activated</p>
+            <p>Effect activated</p>
           </div>
           <div class="option">
             <paper-toggle-button checked="{{demoHorizontal}}"></paper-toggle-button>
-            <p style="display: inline-block;">Horizontal</p>
+            <p>Horizontal</p>
           </div>
           
           <h4>layers</h4>
           <div class="option">
             <paper-toggle-button checked="{{demoFullbleed}}"></paper-toggle-button>
-            <p style="display: inline-block;">Full bleed layers</p>
+            <p>Full bleed layers</p>
           </div>
           
           <h4>others</h4>
           <div class="option">
             <paper-toggle-button checked="{{demoTransparent}}"></paper-toggle-button>
-            <p style="display: inline-block;">Transparent base groups</p>
+            <p>Transparent base groups</p>
           </div>
         </div>
       </div>

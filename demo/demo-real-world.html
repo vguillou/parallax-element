@@ -11,111 +11,115 @@
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   
-  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
   <link rel="import" href="../../iron-image/iron-image.html">
   <link rel="import" href="../parallax-element.html">
 
-  <style>
-  /* ----------------------- Demo styles ----------------------- */
-  
-  body, html {
-    overflow: hidden;
-    font: 100% / 1.5 Arial;
-  }
-  
-  * {
-    margin:0;
-    padding:0;
-  }
-  
-  p {
-    font-size: 1em;
-    margin: 0.5em 1em;
-  }
-
-  .title {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    font-size: 2em;
-    margin: 1em;
-  }
-
-  .subtitle {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-  }
-  
-  /* ----------------------- Parallax styles ---------------------- */
-  
-  parallax-element {
-    height: 100vh;
-  }
-
-  div.baseGroup {
-    z-index: 1;
-    min-height: 700px;
-    background: white;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
-  }
-
-  div.baseGroup.footer {
-    min-height: 400px;
-  }
-
-  parallax-layers[id^="img"] {
-    z-index: -1;
-    min-height: 600px;
-  }
-
-  parallax-layers[id^="img"] > .background {
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: -2;
-  }
-  
-  parallax-layers[id^="img"] p {
-    position: absolute;
-    bottom: 0;
-    font-size: 1.5em;
-    color: white;
-    text-shadow: 2px -2px 11px rgba(0, 0, 0, 1);
-  }
-
-  #imgHeader > .background {
-    background-position: 30% 95% !important;
-    background-color: #009688;
-  }
-  
-  #img1 > .background {
-    background-position: 90% 40% !important;
-    background-color: #795548;
-  }
+  <style is="custom-style">
+    /* ----------------------- Demo styles ----------------------- */
     
-  #img2 > .background {
-    background-position: 70% 40% !important;
-    background-color: #00BCD4;
-  }
-  #img3 > .background {
-    background-position: 35% 50% !important;
-    background-color: #33691E;
-  }
-  #img4 > .background {
-    background-position: 55% 50% !important;
-    background-color: #EF9A9A;
-  }
-  #img5 > .background {
-    background-position: 50% 55% !important;
-    background-color: #4CAF50;
-  }
-  #test {
-    height: 400px;
+    body, html {
+      overflow: hidden;
+      font: 100% / 1.5 Arial;
+    }
+    
+    * {
+      margin:0;
+      padding:0;
+    }
+    
+    p {
+      font-size: 1em;
+      margin: 0.5em 1em;
+    }
 
-  }
-  parallax-element {
+    .titleContainer {
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+    }
 
-  }
+    .title {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 2em;
+      margin: 1em;
+    }
+
+    .subtitle {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+    
+    /* ----------------------- Parallax styles ---------------------- */
+    
+    parallax-element {
+      height: 100vh;
+    }
+
+    div.baseGroup {
+      z-index: 1;
+      min-height: 700px;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+    }
+
+    div.baseGroup.footer {
+      min-height: 400px;
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+      @apply(--layout-around-justified);
+      @apply(--layout-flex);
+    }
+
+    parallax-layers[id^="img"] {
+      z-index: -1;
+      min-height: 600px;
+    }
+
+    parallax-layers[id^="img"] > .background {
+      background-repeat: no-repeat;
+      background-size: cover;
+      z-index: -2;
+    }
+    
+    parallax-layers[id^="img"] p {
+      position: absolute;
+      bottom: 0;
+      font-size: 1.5em;
+      color: white;
+      text-shadow: 2px -2px 11px rgba(0, 0, 0, 1);
+    }
+
+    #imgHeader > .background {
+      background-position: 30% 95% !important;
+      background-color: #009688;
+    }
+    
+    #img1 > .background {
+      background-position: 90% 40% !important;
+      background-color: #795548;
+    }
+    
+    #img2 > .background {
+      background-position: 70% 40% !important;
+      background-color: #00BCD4;
+    }
+    #img3 > .background {
+      background-position: 35% 50% !important;
+      background-color: #33691E;
+    }
+    #img4 > .background {
+      background-position: 55% 50% !important;
+      background-color: #EF9A9A;
+    }
+    #img5 > .background {
+      background-position: 50% 55% !important;
+      background-color: #4CAF50;
+    }
   </style>
 </head>
 
@@ -125,13 +129,13 @@
 
     <parallax-layers id="imgHeader" style="z-index: -1;">
       <iron-image depth="-0.6" sizing="cover" preload fade src="res/meneham.jpg" class="background fullbleed"></iron-image>
-      <div depth="-0.4" class="vertical center-center layout fullbleed">
-        <a href="https://en.wikipedia.org/wiki/Brittany" title="Prehistoric origins" class="title">Breizh&nbsp; Bretagne&nbsp; Britanny</a>
+      <div depth="-0.4" class="titleContainer fullbleed">
+        <a href="https://en.wikipedia.org/wiki/Brittany" title="Breizh Bretagne Britanny" class="title">Breizh / Bretagne / Britanny</a>
       </div>
       <p>Meneham</p>
     </parallax-layers>
     
-    <div class="baseGroup vertical center-center layout">
+    <div class="baseGroup">
 
       <!-- demo content (wikipedia extract), do not worry about this -->
       <p><b>Brittany</b> (<span class="nowrap"><span class="IPA nopopups"><a href="https://en.wikipedia.org/wiki/Help:IPA_for_English" title="Help:IPA for English">/<span style="border-bottom:1px dotted"><span title="/ˈ/ primary stress follows">ˈ</span><span title="'b' in 'buy'">b</span><span title="'r' in 'rye'">r</span><span title="/ɪ/ short 'i' in 'bid'">ɪ</span><span title="'t' in 'tie'">t</span><span title="/ə/ 'a' in 'about'">ə</span><span title="'n' in 'no'">n</span><span title="/ɪ/ short 'i' in 'bid'">ɪ</span></span>/</a></span></span>; French: <span lang="fr" xml:lang="fr"><i>Bretagne</i></span> <span title="Representation in the International Phonetic Alphabet (IPA)" class="IPA"><a href="https://en.wikipedia.org/wiki/Help:IPA_for_French" title="Help:IPA for French">[bʁə.taɲ]</a></span><small class="nowrap metadata">&nbsp;(<a href="https://en.wikipedia.org/wiki/File:Fr-Bretagne.ogg" title="File:Fr-Bretagne.ogg"><a href="//upload.wikimedia.orghttps://en.wikipedia.org/wikipedia/commons/1/1b/Fr-Bretagne.ogg" class="internal" title="Fr-Bretagne.ogg">listen</a>)</small>; <a href="https://en.wikipedia.org/wiki/Breton_language" title="Breton language">Breton</a>: <span lang="br" xml:lang="br"><i>Breizh</i></span>, pronounced <span title="Representation in the International Phonetic Alphabet (IPA)" class="IPA"><a href="https://en.wikipedia.org/wiki/Help:IPA" title="Help:IPA">[bʁɛjs]</a></span> or <span title="Representation in the International Phonetic Alphabet (IPA)" class="IPA"><a href="https://en.wikipedia.org/wiki/Help:IPA" title="Help:IPA">[bʁɛχ]</a></span>;<sup id="cite_ref-Walter_1-0" class="reference"><a href="#cite_note-Walter-1"><span>[</span>1<span>]</span></a></sup> <a href="https://en.wikipedia.org/wiki/Gallo_language" title="Gallo language">Gallo</a>: <i>Bertaèyn</i>, pronounced <span title="Representation in the International Phonetic Alphabet (IPA)" class="IPA"><a href="https://en.wikipedia.org/wiki/Help:IPA_for_French" title="Help:IPA for French">[bəʁ.taɛɲ]</a></span>) is a <a href="https://en.wikipedia.org/wiki/Cultural_region" title="Cultural region" class="mw-redirect">cultural region</a> in the north-west of <a href="https://en.wikipedia.org/wiki/France" title="France">France</a>. Covering the western part of <a href="https://en.wikipedia.org/wiki/Armorica" title="Armorica">Armorica</a>, as it was known during the period of Roman occupation, Brittany subsequently became an independent <a href="https://en.wikipedia.org/wiki/Kingdom_of_Brittany" title="Kingdom of Brittany">kingdom</a> and then a <a href="https://en.wikipedia.org/wiki/Duchy_of_Brittany" title="Duchy of Brittany">duchy</a> before being <a href="https://en.wikipedia.org/wiki/Union_between_Brittany_and_France" title="Union between Brittany and France" class="mw-redirect">united</a> with the <a href="https://en.wikipedia.org/wiki/Kingdom_of_France" title="Kingdom of France">Kingdom of France</a> in 1532 as a <a href="https://en.wikipedia.org/wiki/Province_of_France" title="Province of France" class="mw-redirect">province</a> governed as if it were a separate nation under the crown. Brittany has also been referred to as <i>Less</i>, <i>Lesser</i> or <i>Little</i> Britain (as opposed to <i><a href="https://en.wikipedia.org/wiki/Great_Britain" title="Great Britain">Great Britain</a></i>). It is bordered by the <a href="https://en.wikipedia.org/wiki/English_Channel" title="English Channel">English Channel</a> to the north, the <a href="https://en.wikipedia.org/wiki/Celtic_Sea" title="Celtic Sea">Celtic Sea</a> and the <a href="https://en.wikipedia.org/wiki/Atlantic_Ocean" title="Atlantic Ocean">Atlantic Ocean</a> to the west, and the <a href="https://en.wikipedia.org/wiki/Bay_of_Biscay" title="Bay of Biscay">Bay of Biscay</a> to the south. Its land area is 34,023&nbsp;km² <span class="nowrap">(13,136 sq mi)</span>.</p>
@@ -144,7 +148,7 @@
       <p>Yeun Elez</p>
     </parallax-layers>
 
-    <div class="baseGroup vertical center-center layout">
+    <div class="baseGroup">
 
       <!-- demo content (wikipedia extract), do not worry about this -->
       <p><a href="https://en.wikipedia.org/wiki/Brittany#Prehistoric_origins" title="Prehistoric origins" class="subtitle">Prehistoric origins</a></p>
@@ -159,7 +163,7 @@
       <p>Crozon</p>
     </parallax-layers>
     
-    <div class="baseGroup vertical center-center layout">
+    <div class="baseGroup">
       <p><a href="https://en.wikipedia.org/wiki/Brittany#Middle_Ages" title="Middle Ages" class="subtitle">Middle Ages</a></p>
       <p>At the beginning of the medieval era, Brittany was divided between three kingdoms, <a href="https://en.wikipedia.org/wiki/Domnon%C3%A9e" title="Domnonée">Domnonea</a>, <a href="https://en.wikipedia.org/wiki/Cornouaille" title="Cornouaille">Cornouaille</a> and <a href="https://en.wikipedia.org/wiki/Bro%C3%ABrec" title="Broërec" class="mw-redirect">Broërec</a>. These realms eventually merged into a single state during the 9th century.<sup id="cite_ref-23" class="reference"><a href="#cite_note-23"><span>[</span>20<span>]</span></a></sup><sup id="cite_ref-autogenerated1_24-0" class="reference"><a href="#cite_note-autogenerated1-24"><span>[</span>21<span>]</span></a></sup> The unification of Brittany was carried out by <a href="https://en.wikipedia.org/wiki/Nominoe" title="Nominoe">Nominoe</a>, king between 845 and 851 and considered as the Breton <i><a href="https://en.wikipedia.org/wiki/Pater_Patriae" title="Pater Patriae">pater patriae</a></i>. His son <a href="https://en.wikipedia.org/wiki/Erispoe" title="Erispoe">Erispoe</a> secured the independence of the new kingdom of Brittany and won the <a href="https://en.wikipedia.org/wiki/Battle_of_Jengland" title="Battle of Jengland">Battle of Jengland</a> against <a href="https://en.wikipedia.org/wiki/Charles_the_Bald" title="Charles the Bald">Charles the Bald</a>. The Bretons won another war in 867, and the kingdom reached then its maximum extent: it received parts of <a href="https://en.wikipedia.org/wiki/Normandy" title="Normandy">Normandy</a>, <a href="https://en.wikipedia.org/wiki/Maine_(province_of_France)" title="Maine (province of France)" class="mw-redirect">Maine</a> and <a href="https://en.wikipedia.org/wiki/Anjou" title="Anjou">Anjou</a> and the <a href="https://en.wikipedia.org/wiki/Channel_Islands" title="Channel Islands">Channel Islands</a>.</p>
       <!-- end of content -->
@@ -171,7 +175,7 @@
       <p>Menez Sant-Mikael</p>
     </parallax-layers>
     
-    <div class="baseGroup vertical center-center layout">
+    <div class="baseGroup">
 
       <!-- demo content (wikipedia extract), do not worry about this -->
       <p><a href="https://en.wikipedia.org/wiki/Brittany#Geography_and_natural_history" title="Geography and natural history" class="subtitle">Geography and natural history</a></p>
@@ -186,7 +190,7 @@
       <p>Ploumanac'h</p>
     </parallax-layers>
     
-    <div class="baseGroup vertical center-center layout">
+    <div class="baseGroup">
 
       <!-- demo content (wikipedia extract), do not worry about this -->
       <p><a href="https://en.wikipedia.org/wiki/Brittany#Regional_identity" title="Regional identity" class="subtitle">Regional identity</a></p>
@@ -201,9 +205,9 @@
       <p>Huelgoat</p>
     </parallax-layers>
     
-    <div class="baseGroup footer horizontal center around-justified layout flex">
-        <p>Text extracts : <a href="http://www.wikipedia.com"><img src="res/wikipedia.png" style="height: 1.4em;" alt="wikipedia"></a></p>
-        <p>Photos : <a href="https://vguillou.github.io" class="subtitle">Vincent&nbsp;Guillou</a></p>
+    <div class="baseGroup footer">
+      <p>Text extracts : <a href="http://www.wikipedia.com"><img src="res/wikipedia.png" style="height: 1.4em;" alt="wikipedia"></a></p>
+      <p>Photos : <a href="https://www.github.com/vguillou" class="subtitle">Vincent&nbsp;Guillou</a></p>
     </div>
   
    </parallax-element>

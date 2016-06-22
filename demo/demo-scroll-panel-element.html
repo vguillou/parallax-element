@@ -1,5 +1,5 @@
 <link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../iron-icons/iron-icons.html">
 <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../paper-scroll-header-panel/paper-scroll-header-panel.html">
@@ -9,7 +9,7 @@
 
 <dom-module id="demo-scroll-panel-element">
   <template>
-    <style>
+    <style is="custom-style">
       paper-scroll-header-panel {
         position: absolute;
         top: 0;
@@ -47,6 +47,16 @@
         };
       }
 
+      .content {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+
+        -webkit-overflow-scrolling: auto;
+      }
+
       /* demo and layer style */
 
       parallax-layers {
@@ -54,7 +64,13 @@
         z-index: -1;
       }
 
-      parallax-layers > .parallax-layer {
+      .parallax-layer,
+      .no-parallax {
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+      }
+
+      .parallax-layer {
         background-image: url("res/doge.jpg");
         background-position: 50% 50%;
         background-repeat: no-repeat;
@@ -62,16 +78,20 @@
         color: white;
       }
     
-      div.no-parallax {
+      .no-parallax {
         min-height: 500px;
         z-index: 0;
         background: white;
         border-style: solid;
         border-width: 5px;
         border-color: black;
-    }
+      }
+
+      .flex {
+        @apply(--layout-flex);
+      }
     </style>
-    
+
     <paper-scroll-header-panel id="headerPanel" class="flex" condenses keep-condensed-header>
 
       <!-- Toolbar -->
@@ -83,23 +103,25 @@
       </paper-toolbar>
 
       <!-- Content (Must not be embed in a parent div: The scroller must be the direct parent of all <parallax-layers> -->
-      <template is="dom-repeat" items="{{sections}}">
+      <div id="contentContainer" class="content">
+        <template is="dom-repeat" items="{{sections}}">
 
-        <template is="dom-if" if="{{isNormalSection(item)}}">
-          <div class="no-parallax     layout vertical center-center">
-            [[item.label]]
-          </div>
-        </template>
-
-       <template is="dom-if" if="{{!isNormalSection(item)}}">
-          <parallax-layers style$="{{computeSectionZindex(item)}}">
-            <div depth$="[[item.depth]]" class="parallax-layer fullbleed     layout vertical center-center">
+          <template is="dom-if" if="{{isNormalSection(item)}}">
+            <div class="no-parallax">
               [[item.label]]
             </div>
-          </parallax-layers>
-        </template>
+          </template>
 
-      </template>
+         <template is="dom-if" if="{{!isNormalSection(item)}}">
+            <parallax-layers style$="{{computeSectionZindex(item)}}">
+              <div depth$="[[item.depth]]" class="parallax-layer fullbleed">
+                [[item.label]]
+              </div>
+            </parallax-layers>
+          </template>
+
+        </template>
+      </div>
 
     </paper-scroll-header-panel>
 

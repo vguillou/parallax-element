@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Breizh</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-TileColor" content="#000">
+  <meta name="theme-color" content="#000">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  
+  <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+  <link rel="import" href="../../iron-image/iron-image.html">
+  <link rel="import" href="../parallax-element.html">
+
+  <style is="custom-style">
+    /* ----------------------- Demo styles ----------------------- */
+    
+    body, html {
+      overflow: hidden;
+      font: 100% / 1.5 Arial;
+    }
+    
+    * {
+      margin:0;
+      padding:0;
+    }
+    
+    p {
+      font-size: 1em;
+      margin: 0.5em 1em;
+    }
+
+    .title {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 2em;
+      margin: 1em;
+    }
+
+    .subtitle {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+
+    .fit {
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+    
+    /* ----------------------- Parallax styles ---------------------- */
+    
+    parallax-element {
+      height: 100vh;
+    }
+
+    div.baseGroup {
+      z-index: 1;
+      min-height: 700px;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+    }
+
+    div.baseGroup.footer {
+      min-height: 400px;
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+      @apply(--layout-around-justified);
+      @apply(--layout-flex);
+    }
+
+    parallax-layers[id^="img"] {
+      min-height: 500px;
+    }
+
+    parallax-layers[id="imgHeader"] {
+      min-height: 300px;
+    }
+
+    parallax-layers[id^="img"] > .background {
+      background-repeat: no-repeat;
+      background-size: initial !important;
+      z-index: -2;
+    }
+    
+    parallax-layers[id^="img"] p {
+      position: absolute;
+      bottom: 0;
+      font-size: 1.5em;
+      color: white;
+      text-shadow: 2px -2px 11px rgba(0, 0, 0, 1);
+    }
+
+    iron-image {
+      opacity: 0.7;
+      border-style: solid;
+      border-width: 5px;
+      border-color: black;
+
+    }
+
+    #imgHeader > .background {
+      background-position: 30% 95% !important;
+      background-color: #009688;
+    }
+    
+    #img1 > .background {
+      background-position: 90% 40% !important;
+      background-size: cover !important;
+      background-color: #795548;
+    }
+      
+    #img2 > .background {
+      background-position: 70% 300% !important;
+      background-color: #00BCD4;
+    }
+    #img3 > .background {
+      background-position: 35% 100% !important;
+      background-color: #33691E;
+    }
+    #img4 > .background {
+      background-position: 55% 100% !important;
+      background-color: #EF9A9A;
+    }
+    #img5 > .background {
+      background-position: 50% 700% !important;
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+
+<body unresolved>
+
+  <parallax-element>
+
+    <parallax-layers id="imgHeader" style="z-index: 5;">
+      <iron-image depth="-0.1" sizing="cover" preload fade src="res/meneham.jpg" class="background fullbleed"></iron-image>
+      <div depth="-0.1" class="fullbleed">
+        <p>Meneham</p>
+      </div>
+    </parallax-layers>
+
+    <parallax-layers id="img1" style="z-index: 4;">
+      <iron-image depth="-0.2" sizing="cover" preload fade src="res/yeun-elez.jpg" class="background fit"></iron-image>
+      <div depth="-0.2" class="fit">
+        <p>Yeun Elez</p>
+      </div>
+    </parallax-layers>
+    
+    <parallax-layers id="img2" style="z-index: 3;">
+      <iron-image depth="-0.33" sizing="cover" preload fade src="res/ile-vierge.jpg" class="background fit"></iron-image>
+      <div depth="-0.33" class="fit">
+        <p>Crozon</p>
+      </div>
+    </parallax-layers>
+    
+    <parallax-layers id="img3" style="z-index: 2;">
+      <iron-image depth="-0.48" sizing="cover" preload fade src="res/saint-michel.jpg" class="background fit"></iron-image>
+      <div depth="-0.48" class="fit">
+        <p>Menez Sant-Mikael</p>
+      </div>
+    </parallax-layers>
+
+    <div class="baseGroup">
+      <p>Photos : <a href="https://vguillou.github.io" class="subtitle">Vincent&nbsp;Guillou</a></p>
+    </div>
+    
+    <parallax-layers id="img4" style="z-index: 1;">
+      <iron-image depth="-0.66" sizing="cover" preload fade src="res/ploumanach.jpg" class="background fit"></iron-image>
+      <div depth="-0.66" class="fit">
+        <p>Ploumanac'h</p>
+      </div>
+    </parallax-layers>
+    
+    <parallax-layers id="img5" style="z-index: 0;">
+      <iron-image depth="-0.88" sizing="cover" preload fade src="res/huelgoat.jpg" class="background fit"></iron-image>
+      <div depth="-0.88" class="fit">
+        <p>Huelgoat</p>
+      </div>
+    </parallax-layers>
+    
+    <div class="baseGroup footer">
+      <p>Photos : <a href="https://vguillou.github.io" class="subtitle">Vincent&nbsp;Guillou</a></p>
+    </div>
+  
+   </parallax-element>
+
+</body></html>

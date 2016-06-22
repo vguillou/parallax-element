@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
   <link rel="import" href="../parallax-element.html">
 
-   <style>
+   <style is="custom-style">
      body, html {
       overflow: hidden;
       font: 200% / 1.5 Arial;
@@ -27,7 +27,13 @@
       z-index: -1;
     }
 
-    parallax-layers > .parallax-layer {
+    .parallax-layer,
+    .no-parallax {
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+    }
+
+    .parallax-layer {
       background-image: url("res/doge.jpg");
       background-position: 50% 50%;
       background-repeat: no-repeat;
@@ -35,7 +41,7 @@
       color: white;
     }
   
-    div.no-parallax {
+    .no-parallax {
       min-height: 500px;
       z-index: 0;
       background: white;
@@ -54,14 +60,14 @@
       <template is="dom-repeat" items="{{sections}}">
 
         <template is="dom-if" if="{{isNormalSection(item)}}">
-          <div class="no-parallax     layout vertical center-center">
+          <div class="no-parallax">
             [[item.label]]
           </div>
         </template>
 
        <template is="dom-if" if="{{!isNormalSection(item)}}">
           <parallax-layers style$="{{computeSectionZindex(item)}}">
-            <div depth$="[[item.depth]]" class="parallax-layer fullbleed     layout vertical center-center">
+            <div depth$="[[item.depth]]" class="parallax-layer fullbleed">
               [[item.label]]
             </div>
           </parallax-layers>

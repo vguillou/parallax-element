@@ -22,9 +22,9 @@
 
 	/* ----------------------- Parallax styles ---------------------- */
     
-    parallax-element {
-      height: 100vh;
-    }
+  parallax-element {
+    height: 100vh;
+  }
 
 	#groupDesc {
 	  min-height: 2000px;
@@ -41,137 +41,150 @@
 	
 	body {
 	  font-family: sans-serif;
-	  -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
 	  margin: 0;
 	  padding: 0;
-      overflow: hidden;
-      font: 100% / 1.5 Arial;
+    overflow: hidden;
+    font: 100% / 1.5 Arial;
 	}
 
-    .demo-container {
-        margin: 0 auto;
-        max-width: 550px;
-        position: relative;
-    }
-	
-    paper-toolbar {
-	  position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-	  z-index: 10;
-      height: 60px;
-      line-height: 60px;
-      font-size: 18px;
-	  font-weight: bold;
-      --paper-toolbar-background: rgb(104, 159, 56);
-      color: #FFF;
-    }
+  .demo-container {
+    margin: 0 auto;
+    max-width: 550px;
+    position: relative;
+  }
 
-    paper-icon-button {
-        position: absolute;
-        top: 10px;
-        color: #FFF;
-        z-index: 20;
-    }
+  paper-toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    --paper-toolbar-background: rgb(104, 159, 56);
+    color: #FFF;
+  }
+
+  paper-icon-button {
+    position: absolute;
+    top: 10px;
+    color: #FFF;
+    z-index: 20;
+  }
     
 	.toolbarTitle {
-	  font-size: 110%;
-      margin-left: 40px;
-    }
+    font-size: 110%;
+    margin-left: 40px;
+  }
 	
-    .content {
-      top: 0;
-	  right: 0;
-	  bottom: 0;
-	  left: 0;
-    }
+  .content {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 	
 	.logoLayer {
 	  background-repeat: no-repeat;
 	  background-size: cover;
 	  background-image: url("res/parallax.jpg");
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
 	}
 	 
 	.descLayer {
-      height: 100%;
-      background: linear-gradient(white, grey);
-	  padding: 1em;
-    }
+    height: 100%;
+    background: linear-gradient(white, grey);
+    padding: 1em;
+  }
+
+  .buttonContainer {
+    @apply(--layout-horizontal);
+  }
   
 	.appTitle {
-	  color: #FFF;
-	  font-size: 175%;
-	  text-align: center;
-    }
-	
+    color: #FFF;
+    font-size: 175%;
+    text-align: center;
+  }
+
+  .flex {
+    @apply(--layout-flex);
+  }
+
+  .fit {
+    @apply(--layout-fit);
+  }
 </style> 
 </head>
 
 <body unresolved>
   <div class="demo-container">
     <paper-toolbar>
-        <div class="toolbarTitle flex">parallax-element</div>
+      <div class="toolbarTitle flex">parallax-element</div>
     </paper-toolbar>
 
-	<parallax-element>
-	
-		<parallax-layers id="groupLogo">
-			<div depth="-0.6" class="logoLayer horizontal center-center layout fullbleed">
-				<div class="appTitle">Parallax Element</div>
-			</div>
-		</parallax-layers>
-		
-		<div id="groupDesc" class="descLayer" class="fit">
-			<div style="float: left; display: inline-block; height: 64px; width: 64px; border-radius: 20%; background: #7E57C2; line-height: 64px; font-size: 30px; color: #FFF; text-align: center; margin: 12px 12px 0 0;">P</div>
-			<div style="font-size: 22px; padding: 0 0 8px;">parallax-element</div>
-			<div style="font-size: 14px; margin-bottom: 20px;">A Polymer element allowing to declaratively create simple vertical or horizontal parallax scrolling effects.</div>
-				
-			<div class="horizontal flex layout" style="margin-bottom: 20px;">
-				<paper-button raised class="flex" onclick="window.location.href='https://github.com/vguillou/parallax-element'">GitHub</paper-button>
-				<paper-button raised class="flex" style="background: rgb(104, 159, 56); color: #FFF;" onclick="window.location.href='index.html'">Demos</paper-button>
-			</div>
-			<hr>
-			<div class="flex" style="font-size: 14px; text-align: center; margin-top: 20px;">Fugit adolescens vis et, ei graeci forensibus sed.</div>
-			<div class="flex" style="font-size: 14px; text-align: center; margin-bottom: 20px;">Convenire definiebas scriptorem eu cum. Sit dolor dicunt consectetuer no. Ea duis bonorum nec, falli paulo aliquid ei eum.</div>
-			<hr>
-			<div style="margin-top: 20px;">
-				Usu eu novum principes, vel quodsi aliquip ea.
-				Has at minim mucius aliquam, est id tempor laoreet.
-				Pro saepe pertinax ei, ad pri animal labores suscipiantur.
-				Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.
-				Iisque perfecto dissentiet cum et, sit ut quot mandamus, ut vim tibique splendide instructior.
-				Id nam odio natum malorum, tibique copiosae expetenda mel ea.
-				Cu mei vide viris gloriatur, at populo eripuit sit.
-				Modus commodo minimum eum te, vero utinam assueverit per eu.
-			</div>
-		</div>
-			
-	</parallax-element>
+  	<parallax-element>
+  	
+  		<parallax-layers id="groupLogo">
+  			<div depth="-0.6" class="logoLayer fullbleed">
+  				<div class="appTitle">Parallax Element</div>
+  			</div>
+  		</parallax-layers>
+  		
+  		<div id="groupDesc" class="descLayer" class="fit">
+  			<div style="float: left; display: inline-block; height: 64px; width: 64px; border-radius: 20%; background: #7E57C2; line-height: 64px; font-size: 30px; color: #FFF; text-align: center; margin: 12px 12px 0 0;">P</div>
+  			<div style="font-size: 22px; padding: 0 0 8px;">parallax-element</div>
+  			<div style="font-size: 14px; margin-bottom: 20px;">A Polymer element allowing to declaratively create simple vertical or horizontal parallax scrolling effects.</div>
+  				
+  			<div class="buttonContainer flex" style="margin-bottom: 20px;">
+  				<paper-button raised class="flex" onclick="window.location.href='https://github.com/vguillou/parallax-element'">GitHub</paper-button>
+  				<paper-button raised class="flex" style="background: rgb(104, 159, 56); color: #FFF;" onclick="window.location.href='index.html'">Demos</paper-button>
+  			</div>
+  			<hr>
+  			<div class="flex" style="font-size: 14px; text-align: center; margin-top: 20px;">Fugit adolescens vis et, ei graeci forensibus sed.</div>
+  			<div class="flex" style="font-size: 14px; text-align: center; margin-bottom: 20px;">Convenire definiebas scriptorem eu cum. Sit dolor dicunt consectetuer no. Ea duis bonorum nec, falli paulo aliquid ei eum.</div>
+  			<hr>
+  			<div style="margin-top: 20px;">
+  				Usu eu novum principes, vel quodsi aliquip ea.
+  				Has at minim mucius aliquam, est id tempor laoreet.
+  				Pro saepe pertinax ei, ad pri animal labores suscipiantur.
+  				Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.
+  				Iisque perfecto dissentiet cum et, sit ut quot mandamus, ut vim tibique splendide instructior.
+  				Id nam odio natum malorum, tibique copiosae expetenda mel ea.
+  				Cu mei vide viris gloriatur, at populo eripuit sit.
+  				Modus commodo minimum eum te, vero utinam assueverit per eu.
+  			</div>
+  		</div>
+  			
+  	</parallax-element>
 
     <paper-icon-button icon="arrow-back" style="left: 8px;"></paper-icon-button>
     <paper-icon-button icon="search" style="right: 8px;"></paper-icon-button>
   </div>
 <script>
   window.addEventListener('WebComponentsReady', function() {
-      var parallaxElement = Polymer.dom(document).querySelector('parallax-element');
-      var toolbarStyle = Polymer.dom(document).querySelector('paper-toolbar').style;
-      var alpha = toolbarStyle.opacity = 0;
+    var parallaxElement = Polymer.dom(document).querySelector('parallax-element');
+    var toolbarStyle = Polymer.dom(document).querySelector('paper-toolbar').style;
+    var alpha = toolbarStyle.opacity = 0;
 
-      parallaxElement.addEventListener('scroll', function (e) {
-        var logoHeight = Polymer.dom(document).querySelector('#groupLogo').offsetHeight;
-        var scrollTop = parallaxElement.scrollTop;
-        var newAlpha = 1 - Math.max(0, (logoHeight - scrollTop) / logoHeight);
-        if (newAlpha != alpha) {
-          alpha = newAlpha;
-          toolbarStyle.opacity = alpha;
-        }
-      });
+    parallaxElement.addEventListener('scroll', function (e) {
+      var logoHeight = Polymer.dom(document).querySelector('#groupLogo').offsetHeight;
+      var scrollTop = parallaxElement.scrollTop;
+      var newAlpha = 1 - Math.max(0, (logoHeight - scrollTop) / logoHeight);
+      if (newAlpha != alpha) {
+        alpha = newAlpha;
+        toolbarStyle.opacity = alpha;
+      }
+    });
   });
 </script>
 	
