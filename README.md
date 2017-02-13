@@ -7,7 +7,7 @@ Demos available <a href="https://vguillou.github.io/webcomponents/parallax-eleme
 
 ## Browser Support
 
-![Chrome](https://github.com/alrra/browser-logos/raw/master/chrome/chrome_64x64.png) | ![Firefox](https://github.com/alrra/browser-logos/raw/master/firefox/firefox_64x64.png) | ![Opera](https://github.com/alrra/browser-logos/raw/master/opera/opera_64x64.png) | ![Safari](https://github.com/alrra/browser-logos/raw/master/safari/safari_64x64.png) | ![IE](https://github.com/alrra/browser-logos/raw/master/internet-explorer/internet-explorer_64x64.png) | ![Edge](https://github.com/alrra/browser-logos/raw/master/edge/edge_64x64.png)
+![Chrome](https://github.com/alrra/browser-logos/blob/master/src/chrome/chrome_64x64.png) | ![Firefox](https://github.com/alrra/browser-logos/blob/master/src/firefox/firefox_64x64.png) | ![Opera](https://github.com/alrra/browser-logos/blob/master/src/opera/opera_64x64.png) | ![Safari](https://github.com/alrra/browser-logos/blob/master/src/safari/safari_64x64.png) | ![IE](https://github.com/alrra/browser-logos/blob/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_64x64.png) | ![Edge](https://github.com/alrra/browser-logos/blob/master/src/edge/edge_64x64.png)
 :---:|:---:|:---:|:---:|:---:|:---:|
 ✔  | ✔ (flattened rendering on Android) | ✔ | ✔ | ✘ (flattened rendering) | ✔ |
 
